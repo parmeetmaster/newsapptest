@@ -10,9 +10,17 @@ subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
 subprojects {
-    project.evaluationDependsOn(":app")
+    //flutter plugin name is here
+    beforeEvaluate { project ->
+        if (project.name == "flutter_tts") {
+            project.buildscript.dependencies.classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.10"
+        }
+    }
 }
-
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+rootProject.buildDir = '../build'
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }

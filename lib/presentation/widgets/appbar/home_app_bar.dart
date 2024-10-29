@@ -47,7 +47,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
            ),
          ),
        ),
-       if(ref.watch(home))
+       if(ref.watch(homeScreenProvider).networkOnline==false)
        Container(
          width: double.infinity,
          decoration: BoxDecoration(
