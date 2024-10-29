@@ -27,7 +27,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         child: ListView.builder(
           controller: ref.read(homeScreenProvider).scrollController,
           itemCount:
-              ref.watch(homeScreenProvider).articles.length + (true ? 1 : 0),
+              ref.watch(homeScreenProvider).articles.length + (ref.watch(homeScreenProvider).hasMoreData ? 1 : 0),
           itemBuilder: (context, index) {
             if (index < ref.read(homeScreenProvider).articles.length) {
               final article = ref.read(homeScreenProvider).articles[index];
