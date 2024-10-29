@@ -1,16 +1,42 @@
-# company_test
+Here’s a README file based on the information you provided:
 
-A new Flutter project.
+---
 
-## Getting Started
+# News Application
 
-This project is a starting point for a Flutter application.
+This News Application was created as part of a task for Innovaccer. It includes several features:
 
-A few resources to get you started if this is your first Flutter project:
+- **Home Screen**: Displays a list of news articles.
+- **Theme Support**: Full theme support across the app.
+- **Blog Sharing**: Allows sharing of blogs.
+- **Security Considerations**: Sensitive credentials (like API keys) are securely managed in `gradle` and through `method channels`.
+- **Custom Widgets**: Includes several custom widgets for a modular and reusable UI.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Requirements
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- **Flutter**: Version 3.22.4. This app uses `fvm` for Flutter version management.
+- **Build Runner**: To ensure all generated files are up to date, run:
+  ```bash
+  fvm flutter pub run build_runner watch --delete-conflicting-outputs --use-polling-watcher
+  ```
+
+## Installation
+
+To run the app locally, you can either:
+1. **Download and Install APK**: Install the APK directly on your mobile device from the link below:
+    - [APK Download](https://github.com/parmeetmaster/newsapptest/blob/master/git_resources/app-release.apk)
+
+2. **Run the Code Locally**: Ensure you have `fvm` installed and Flutter version 3.22.4 activated. Then, follow the standard steps to run the Flutter project.
+
+## Additional Resources
+
+- **Demo Video**: For a quick overview of the application, check out this video:
+    - [Video for Sharing](https://github.com/parmeetmaster/newsapptest/blob/master/git_resources/video%20for%20sharing.mp4)
+
+## Contact
+
+For any questions or further assistance, feel free to reach out via call or WhatsApp at **+91 9871917515**.
+
+--- 
+
+This README gives a comprehensive overview and guidance on setting up and running the app locally or via the APK. Let me know if you'd like any adjustments!
