@@ -40,16 +40,19 @@ class HomeListItem extends StatelessWidget {
               if (imageUrl != null) ...{
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
-                  child: CachedNetworkImage(
-                    imageUrl: imageUrl ?? "",
-                    height: 150,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                    placeholder: (context, url) => const Center(
-                      child: CircularProgressIndicator(),
+                  child: Hero(
+                    tag: headline,
+                    child: CachedNetworkImage(
+                      imageUrl: imageUrl ?? "",
+                      height: 150,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
                   ),
                 )
               },

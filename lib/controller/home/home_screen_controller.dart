@@ -3,6 +3,7 @@ import 'package:company_test/data_sources/models/response/news_home_screen_model
 import 'package:company_test/data_sources/repo/network/home_repo/i_home_repo.dart';
 import 'package:company_test/data_sources/services/audio/text_to_speech_service.dart';
 import 'package:company_test/data_sources/services/network/connectivity_service/connectivity_service.dart';
+import 'package:company_test/data_sources/services/ui_service/ui_service.dart';
 import 'package:company_test/injectable/inject.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
@@ -21,6 +22,7 @@ class HomeScreenController extends ChangeNotifier {
   ConnectivityService connectivityService;
   TextToSpeechService _speechService;
   IHomeRepo _homeRepo;
+  UrlService _urlService;
 
   //objects
   int pageIndex = 1;
@@ -31,6 +33,7 @@ class HomeScreenController extends ChangeNotifier {
   bool hasMoreData = true;
 
   HomeScreenController(
+      this._urlService,
       this.connectivityService, this._speechService, this._homeRepo);
 
   @PostConstruct()
@@ -64,6 +67,15 @@ class HomeScreenController extends ChangeNotifier {
     });
     onRefesh();
   }
+
+  void openLinkedin(){
+    _urlService.openBrowser("https://www.linkedin.com/in/parmeets834/");
+  }
+
+  void openPortfolio(){
+    _urlService.openBrowser("https://parmeet.netlify.app/");
+  }
+
 
   void onRefesh() {
     pageIndex = 1;

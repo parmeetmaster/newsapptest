@@ -2,6 +2,7 @@ import 'package:company_test/controller/home/home_screen_controller.dart';
 import 'package:company_test/data_sources/services/native/native_service.dart';
 import 'package:company_test/injectable/inject.dart';
 import 'package:company_test/presentation/screens/description/news_detail_screen.dart';
+import 'package:company_test/presentation/widgets/drawer/home_drawer.dart';
 import 'package:company_test/presentation/widgets/list_items/home_list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,6 +20,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: HomeDrawer(),
       appBar: HomeAppBar(),
       body: RefreshIndicator(
         onRefresh: () async {},

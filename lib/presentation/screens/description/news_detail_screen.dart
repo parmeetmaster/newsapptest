@@ -1,4 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:company_test/controller/description/description_controller.dart';
 import 'package:company_test/data_sources/models/response/news_home_screen_model/news_home_screen_model.dart';
+import 'package:company_test/data_sources/services/ui_service/ui_service.dart';
+import 'package:company_test/injectable/inject.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,23 +16,13 @@ class NewsDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _NewsDetailScreenState extends ConsumerState<NewsDetailScreen> {
-  // Random placeholder data
-  final String headline = 'Exciting News Headline Goes Here';
 
-  final String source = 'News Source';
 
-  final String publishDate = 'Oct 29, 2024';
 
-  final String description =
-      'This is a detailed description of the news article. It provides insights, background information, and relevant details for the readers.';
-
-  final String imageUrl = 'https://via.placeholder.com/400';
-
-  void _shareNews(BuildContext context) {
+  void _shareNews(String  s) {
     // Logic to share news article
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('News shared successfully!')),
-    );
+ getIt<UrlService>().openBrowser(s)
+     ;
   }
 
   void _readNews() {
@@ -42,8 +36,8 @@ class _NewsDetailScreenState extends ConsumerState<NewsDetailScreen> {
         title: Text('News Details'),
         actions: [
           IconButton(
-            icon: Icon(Icons.share),
-            onPressed: () => _shareNews(context),
+            icon: Icon(Icons.public),
+            onPressed: () => _shareNews(widget.element.url??""),
           ),
         ],
       ),
@@ -52,22 +46,31 @@ class _NewsDetailScreenState extends ConsumerState<NewsDetailScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             // News Image
-            Image.network(
-              widget.element.urlToImage ?? "",
-              width: double.infinity,
-              height: 200,
-              errorBuilder: (ctx, err, stack) => Container(
-                color: Colors.redAccent,
-                child: const Center(
-                  child: Icon(
-                    Icons.error,
-                    color: Colors.white,
-                    size: 48.0,
-                  ),
+        Hero(
+          tag: widget. element.title??"",
+          child: CachedNetworkImage(
+          imageUrl:widget. element.urlToImage ?? "",
+            width: double.infinity,
+            height: 200,
+            fit: BoxFit.cover,
+            placeholder: (context, url) => Container(
+              color: Colors.grey[300], // Placeholder color
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+            errorWidget: (context, url, error) => Container(
+              color: Theme.of(context).primaryColor,
+              child: const Center(
+                child: Icon(
+                  Icons.error,
+                  color: Colors.white,
+                  size: 48.0,
                 ),
               ),
-              fit: BoxFit.cover,
             ),
+          ),
+        ),
 
             // Headline
             Padding(
@@ -111,7 +114,7 @@ class _NewsDetailScreenState extends ConsumerState<NewsDetailScreen> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton.icon(
-                onPressed: _readNews,
+                onPressed: ()=>ref.read(descriptionProvider).readNews(widget.element.description??""),
                 icon: Icon(Icons.volume_up),
                 label: Text('Read News for Me'),
                 style: ElevatedButton.styleFrom(

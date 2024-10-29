@@ -9,22 +9,15 @@ part of 'api_error_response.dart';
 _$ApiErrorResponseImpl _$$ApiErrorResponseImplFromJson(
         Map<String, dynamic> json) =>
     _$ApiErrorResponseImpl(
-      statusCode: (json['statusCode'] as num).toInt(),
-      message: json['message'] as String,
-      data: json['data'] == null
-          ? null
-          : Data.fromJson(json['data'] as Map<String, dynamic>),
+      status: json['status'] as String?,
+      code: json['code'] as String?,
+      message: json['message'] as String?,
     );
 
 Map<String, dynamic> _$$ApiErrorResponseImplToJson(
         _$ApiErrorResponseImpl instance) =>
     <String, dynamic>{
-      'statusCode': instance.statusCode,
+      'status': instance.status,
+      'code': instance.code,
       'message': instance.message,
-      'data': instance.data,
     };
-
-_$DataImpl _$$DataImplFromJson(Map<String, dynamic> json) => _$DataImpl();
-
-Map<String, dynamic> _$$DataImplToJson(_$DataImpl instance) =>
-    <String, dynamic>{};

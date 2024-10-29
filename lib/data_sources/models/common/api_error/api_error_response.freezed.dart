@@ -20,12 +20,19 @@ ApiErrorResponse _$ApiErrorResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$ApiErrorResponse {
-  int get statusCode => throw _privateConstructorUsedError;
-  String get message => throw _privateConstructorUsedError;
-  Data? get data => throw _privateConstructorUsedError;
+  @JsonKey(name: "status")
+  String? get status => throw _privateConstructorUsedError;
+  @JsonKey(name: "code")
+  String? get code => throw _privateConstructorUsedError;
+  @JsonKey(name: "message")
+  String? get message => throw _privateConstructorUsedError;
 
+  /// Serializes this ApiErrorResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of ApiErrorResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   $ApiErrorResponseCopyWith<ApiErrorResponse> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -36,9 +43,10 @@ abstract class $ApiErrorResponseCopyWith<$Res> {
           ApiErrorResponse value, $Res Function(ApiErrorResponse) then) =
       _$ApiErrorResponseCopyWithImpl<$Res, ApiErrorResponse>;
   @useResult
-  $Res call({int statusCode, String message, Data? data});
-
-  $DataCopyWith<$Res>? get data;
+  $Res call(
+      {@JsonKey(name: "status") String? status,
+      @JsonKey(name: "code") String? code,
+      @JsonKey(name: "message") String? message});
 }
 
 /// @nodoc
@@ -51,39 +59,29 @@ class _$ApiErrorResponseCopyWithImpl<$Res, $Val extends ApiErrorResponse>
   // ignore: unused_field
   final $Res Function($Val) _then;
 
+  /// Create a copy of ApiErrorResponse
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? statusCode = null,
-    Object? message = null,
-    Object? data = freezed,
+    Object? status = freezed,
+    Object? code = freezed,
+    Object? message = freezed,
   }) {
     return _then(_value.copyWith(
-      statusCode: null == statusCode
-          ? _value.statusCode
-          : statusCode // ignore: cast_nullable_to_non_nullable
-              as int,
-      message: null == message
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      code: freezed == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String?,
+      message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
-              as String,
-      data: freezed == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as Data?,
+              as String?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $DataCopyWith<$Res>? get data {
-    if (_value.data == null) {
-      return null;
-    }
-
-    return $DataCopyWith<$Res>(_value.data!, (value) {
-      return _then(_value.copyWith(data: value) as $Val);
-    });
   }
 }
 
@@ -95,10 +93,10 @@ abstract class _$$ApiErrorResponseImplCopyWith<$Res>
       __$$ApiErrorResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int statusCode, String message, Data? data});
-
-  @override
-  $DataCopyWith<$Res>? get data;
+  $Res call(
+      {@JsonKey(name: "status") String? status,
+      @JsonKey(name: "code") String? code,
+      @JsonKey(name: "message") String? message});
 }
 
 /// @nodoc
@@ -109,26 +107,28 @@ class __$$ApiErrorResponseImplCopyWithImpl<$Res>
       $Res Function(_$ApiErrorResponseImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of ApiErrorResponse
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? statusCode = null,
-    Object? message = null,
-    Object? data = freezed,
+    Object? status = freezed,
+    Object? code = freezed,
+    Object? message = freezed,
   }) {
     return _then(_$ApiErrorResponseImpl(
-      statusCode: null == statusCode
-          ? _value.statusCode
-          : statusCode // ignore: cast_nullable_to_non_nullable
-              as int,
-      message: null == message
+      status: freezed == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as String?,
+      code: freezed == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as String?,
+      message: freezed == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
-              as String,
-      data: freezed == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as Data?,
+              as String?,
     ));
   }
 }
@@ -137,22 +137,26 @@ class __$$ApiErrorResponseImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ApiErrorResponseImpl implements _ApiErrorResponse {
   const _$ApiErrorResponseImpl(
-      {required this.statusCode, required this.message, this.data = null});
+      {@JsonKey(name: "status") this.status,
+      @JsonKey(name: "code") this.code,
+      @JsonKey(name: "message") this.message});
 
   factory _$ApiErrorResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$ApiErrorResponseImplFromJson(json);
 
   @override
-  final int statusCode;
+  @JsonKey(name: "status")
+  final String? status;
   @override
-  final String message;
+  @JsonKey(name: "code")
+  final String? code;
   @override
-  @JsonKey()
-  final Data? data;
+  @JsonKey(name: "message")
+  final String? message;
 
   @override
   String toString() {
-    return 'ApiErrorResponse(statusCode: $statusCode, message: $message, data: $data)';
+    return 'ApiErrorResponse(status: $status, code: $code, message: $message)';
   }
 
   @override
@@ -160,17 +164,18 @@ class _$ApiErrorResponseImpl implements _ApiErrorResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ApiErrorResponseImpl &&
-            (identical(other.statusCode, statusCode) ||
-                other.statusCode == statusCode) &&
-            (identical(other.message, message) || other.message == message) &&
-            (identical(other.data, data) || other.data == data));
+            (identical(other.status, status) || other.status == status) &&
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.message, message) || other.message == message));
   }
 
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, statusCode, message, data);
+  int get hashCode => Object.hash(runtimeType, status, code, message);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of ApiErrorResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ApiErrorResponseImplCopyWith<_$ApiErrorResponseImpl> get copyWith =>
@@ -187,99 +192,28 @@ class _$ApiErrorResponseImpl implements _ApiErrorResponse {
 
 abstract class _ApiErrorResponse implements ApiErrorResponse {
   const factory _ApiErrorResponse(
-      {required final int statusCode,
-      required final String message,
-      final Data? data}) = _$ApiErrorResponseImpl;
+          {@JsonKey(name: "status") final String? status,
+          @JsonKey(name: "code") final String? code,
+          @JsonKey(name: "message") final String? message}) =
+      _$ApiErrorResponseImpl;
 
   factory _ApiErrorResponse.fromJson(Map<String, dynamic> json) =
       _$ApiErrorResponseImpl.fromJson;
 
   @override
-  int get statusCode;
+  @JsonKey(name: "status")
+  String? get status;
   @override
-  String get message;
+  @JsonKey(name: "code")
+  String? get code;
   @override
-  Data? get data;
+  @JsonKey(name: "message")
+  String? get message;
+
+  /// Create a copy of ApiErrorResponse
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  @JsonKey(ignore: true)
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ApiErrorResponseImplCopyWith<_$ApiErrorResponseImpl> get copyWith =>
       throw _privateConstructorUsedError;
-}
-
-Data _$DataFromJson(Map<String, dynamic> json) {
-  return _Data.fromJson(json);
-}
-
-/// @nodoc
-mixin _$Data {
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $DataCopyWith<$Res> {
-  factory $DataCopyWith(Data value, $Res Function(Data) then) =
-      _$DataCopyWithImpl<$Res, Data>;
-}
-
-/// @nodoc
-class _$DataCopyWithImpl<$Res, $Val extends Data>
-    implements $DataCopyWith<$Res> {
-  _$DataCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-}
-
-/// @nodoc
-abstract class _$$DataImplCopyWith<$Res> {
-  factory _$$DataImplCopyWith(
-          _$DataImpl value, $Res Function(_$DataImpl) then) =
-      __$$DataImplCopyWithImpl<$Res>;
-}
-
-/// @nodoc
-class __$$DataImplCopyWithImpl<$Res>
-    extends _$DataCopyWithImpl<$Res, _$DataImpl>
-    implements _$$DataImplCopyWith<$Res> {
-  __$$DataImplCopyWithImpl(_$DataImpl _value, $Res Function(_$DataImpl) _then)
-      : super(_value, _then);
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$DataImpl implements _Data {
-  const _$DataImpl();
-
-  factory _$DataImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DataImplFromJson(json);
-
-  @override
-  String toString() {
-    return 'Data()';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$DataImpl);
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => runtimeType.hashCode;
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DataImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _Data implements Data {
-  const factory _Data() = _$DataImpl;
-
-  factory _Data.fromJson(Map<String, dynamic> json) = _$DataImpl.fromJson;
 }

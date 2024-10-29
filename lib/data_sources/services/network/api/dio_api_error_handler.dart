@@ -64,7 +64,7 @@ class DioApiResponseHandle {
               statusCode: e.response?.statusCode ?? null,
               response: e.response,
               errorMessage:
-                  ApiErrorResponse.fromJson(e.response?.data).message));
+                  ApiErrorResponse.fromJson(e.response?.data).code??"Something went wrong"));
         } else if ((e.response?.statusCode ?? 0) > 500) {
           return left(ApiFailure(
               title: "Server Error",
