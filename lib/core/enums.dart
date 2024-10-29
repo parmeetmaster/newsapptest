@@ -1,4 +1,4 @@
 
 enum EnviormentEnum { DEBUG, PROD }
 
-enum AudioStates {Default,Online,Offline}
+enum NetworkState {Default,Online,Offline}

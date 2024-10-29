@@ -1,4 +1,5 @@
 import 'package:company_test/controller/home/home_screen_controller.dart';
+import 'package:company_test/core/enums.dart';
 import 'package:company_test/data_sources/services/native/native_service.dart';
 import 'package:company_test/injectable/inject.dart';
 import 'package:company_test/presentation/screens/description/news_detail_screen.dart';
@@ -24,13 +25,41 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       appBar: HomeAppBar(),
       body: RefreshIndicator(
         onRefresh: () async {},
-        child: ListView.builder(
-          controller: ref.read(homeScreenProvider).scrollController,
+        child: ref
+            .watch(homeScreenProvider)
+            .errorMessage != null || ref.watch(homeScreenProvider).networkState==NetworkState.Offline ? Center(
+              child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                      //  crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(ref
+                  .read(homeScreenProvider)
+                  .errorMessage ?? "Something went wrong"),
+                  SizedBox(height: 10,),
+                  ElevatedButton(onPressed: (){
+                    ref.read(homeScreenProvider).onRefesh();
+                  }, child: Text("Retry"))
+                ],
+              ),
+            ) :ListView.builder(
+          controller: ref
+              .read(homeScreenProvider)
+              .scrollController,
           itemCount:
-              ref.watch(homeScreenProvider).articles.length + (ref.watch(homeScreenProvider).hasMoreData ? 1 : 0),
+          ref
+              .watch(homeScreenProvider)
+              .articles
+              .length + (ref
+              .watch(homeScreenProvider)
+              .hasMoreData ? 1 : 0),
           itemBuilder: (context, index) {
-            if (index < ref.read(homeScreenProvider).articles.length) {
-              final article = ref.read(homeScreenProvider).articles[index];
+            if (index < ref
+                .read(homeScreenProvider)
+                .articles
+                .length) {
+              final article = ref
+                  .read(homeScreenProvider)
+                  .articles[index];
               return ListTile(
                 title: HomeListItem(
                   imageUrl: article.urlToImage,
@@ -44,7 +73,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (ctx) => NewsDetailScreen(element:ref.read(homeScreenProvider).articles[index])));
+                            builder: (ctx) =>
+                                NewsDetailScreen(element: ref
+                                    .read(homeScreenProvider)
+                                    .articles[index])));
                   },
                 ),
               );

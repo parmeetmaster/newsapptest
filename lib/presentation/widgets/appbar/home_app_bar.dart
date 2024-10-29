@@ -72,7 +72,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
            ),
          ),
        ),
-       if(ref.watch(homeScreenProvider).audioState==AudioStates.Offline)
+       if(ref.watch(homeScreenProvider).networkState==NetworkState.Offline)
        Container(
          width: double.infinity,
          decoration: BoxDecoration(

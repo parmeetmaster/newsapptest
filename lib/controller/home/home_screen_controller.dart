@@ -3,6 +3,7 @@ import 'package:company_test/data_sources/models/response/news_home_screen_model
 import 'package:company_test/data_sources/repo/network/home_repo/i_home_repo.dart';
 import 'package:company_test/data_sources/services/audio/text_to_speech_service.dart';
 import 'package:company_test/data_sources/services/network/connectivity_service/connectivity_service.dart';
+import 'package:company_test/data_sources/services/ui_service/toast_service.dart';
 import 'package:company_test/data_sources/services/ui_service/ui_service.dart';
 import 'package:company_test/injectable/inject.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -26,8 +27,9 @@ class HomeScreenController extends ChangeNotifier {
 
   //objects
   int pageIndex = 1;
+  String? errorMessage;
   List<Article> articles = [];
-  AudioStates audioState = AudioStates.Default;
+  NetworkState networkState = NetworkState.Default;
   ScrollController scrollController = ScrollController();
 
   bool hasMoreData = true;
@@ -41,19 +43,22 @@ class HomeScreenController extends ChangeNotifier {
     print("init done");
 
     connectivityService.subscript1ion.listen((connectivityResult) {
-      if (audioState == AudioStates.Default &&
+      if (networkState == NetworkState.Default &&
           !connectivityResult.contains(ConnectivityResult.none)) {
-        audioState = AudioStates.Online;
+        networkState = NetworkState.Online;
+
         return; // Exit on the first run
       }
 
       if (connectivityResult.contains(ConnectivityResult.none)) {
-        audioState = AudioStates.Offline;
+        networkState = NetworkState.Offline;
         _speechService
             .speak("You are offline.Please enable Internet for latest news");
+        errorMessage="Please Enable Internet";
       } else {
-        audioState = AudioStates.Online;
+        networkState = NetworkState.Online;
         _speechService.speak("You are online.Stay Tune with latest news");
+        errorMessage=null;
       onRefesh();
       }
       notifyListeners();
@@ -91,13 +96,21 @@ class HomeScreenController extends ChangeNotifier {
   Future fetchHomeScreen() async {
     Either<ApiFailure, Response> response =
         await _homeRepo.fetchHomeNews(pageIndex: pageIndex);
-    response.fold((error) {}, (response) {
+    response.fold((error) {
+      errorMessage=error.errorMessage;
+      getIt<ToastService>().showRoundedFlushBar("Error",error.errorMessage);
+
+    }, (response) {
       final List<Article> newsArticles =
           (NewsHomeScreenModel.fromJson(response.data).articles ?? [])
               .map((e) => e.copyWith(
                   showDate: DateFormat('dd-MMM-yyyy')
                       .format(e.publishedAt ?? DateTime.now())))
               .toList();
+      if(this.pageIndex==1 &&newsArticles.isEmpty){
+        this.errorMessage="Unable to fetch news";
+      }
+
       articles.addAll(newsArticles);
       if (newsArticles.isEmpty) {
         this.hasMoreData = false;
