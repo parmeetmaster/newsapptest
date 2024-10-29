@@ -14,5 +14,6 @@ final getIt = GetIt.instance;
 )
 configureDependencies(EnviormentEnum env) async {
   await $initGetIt(getIt);
+
   getIt<EnviormentService>().setEnviorment = env;
 }

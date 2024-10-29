@@ -7,4 +7,15 @@ import 'package:injectable/injectable.dart';
 class ConnectivityService {
   Stream<List<ConnectivityResult>> subscript1ion =
       Connectivity().onConnectivityChanged;
+
+  Future<bool> checkInternetConnection()async {
+   List<ConnectivityResult> result=await Connectivity().checkConnectivity();
+    if(result.contains(ConnectivityResult.none)){
+      return false;
+    } else{
+      return true;
+    }
+
+
+  }
 }

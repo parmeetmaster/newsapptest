@@ -1,26 +1,23 @@
-
 import 'package:company_test/core/enums.dart';
 import 'package:company_test/data_sources/services/core/enviorment_service.dart';
 import 'package:company_test/data_sources/services/native/native_service.dart';
+import 'package:company_test/injectable/inject.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+
 //import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:talker_dio_logger/talker_dio_logger.dart';
 
+import 'cache_interceptor.dart';
+
 //rule breaking container
 
-
-class MDioInterceptors extends Interceptor {
-
-
+class AuthInterceptor extends Interceptor {
   @override
   Future<void> onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
-
-      options.headers.addAll({
-
-      });
-
+    options.queryParameters
+        .addAll({"apiKey": getIt<NativeService>().getApiKey});
     return super.onRequest(options, handler);
   }
 
@@ -47,7 +44,7 @@ class DioService {
     required String baseUrl,
     required String stagingUrl,
   }) {
-
+    this.enviormentService = getIt<EnviormentService>();
     var options = BaseOptions(
       baseUrl: enviormentService.curruntEnviorment == EnviormentEnum.DEBUG
           ? stagingUrl
@@ -56,7 +53,9 @@ class DioService {
     );
     dio = Dio(options);
     dio.interceptors.addAll([
-      MDioInterceptors(),
+      CacheInterceptor(),
+      AuthInterceptor(),
+
       //  DioFirebasePerformanceInterceptor(),
       // if (enviormentService.curruntEnviorment==EnviormentEnum.DEBUG)
       TalkerDioLogger(
@@ -76,7 +75,6 @@ class DioService {
           compact: false,
         )*/
       ,
-
     ]);
   }
 

@@ -1,6 +1,7 @@
 
 
 import 'package:company_test/controller/home/home_screen_controller.dart';
+import 'package:company_test/core/enums.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -47,7 +48,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
            ),
          ),
        ),
-       if(ref.watch(homeScreenProvider).networkOnline==false)
+       if(ref.watch(homeScreenProvider).audioState==AudioStates.Offline)
        Container(
          width: double.infinity,
          decoration: BoxDecoration(

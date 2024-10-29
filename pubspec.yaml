@@ -49,6 +49,7 @@ dependencies:
   fluttertoast: ^8.2.8
   connectivity_plus: ^6.1.0
   flutter_tts: ^4.0.2
+  intl:
 
 
 dev_dependencies:

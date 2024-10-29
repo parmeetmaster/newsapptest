@@ -37,6 +37,8 @@ class Article with _$Article {
     DateTime? publishedAt,
     @JsonKey(name: "content")
     String? content,
+    String? showDate
+
   }) = _Article;
 
   factory Article.fromJson(Map<String, dynamic> json) => _$ArticleFromJson(json);
