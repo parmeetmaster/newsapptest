@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray_70">#EEEEEE</color>
+    <color name="gray_410">#979797</color>
+    <color name="crimson_red" type="material">#CF2A2A</color>
+    <color name="yellow_ocher" type="material material-accent">#DF9527</color>
+    <color name="yellow_ocher" type="material material-accent">#DF9527</color>-->
+
+  <!--Widget COlor-->
+
+  <color name="subtitle" type="material">#242020</color>
+  <color name="green_play_button_color" type="material">#21C131</color>
+  <color name="primaryColor" type="material">#2b18de</color>
+  <color name="appbar_icon_color" type="material">#2b18de</color>
+  <color name="hint_color" type="material">#A89E96</color>
+
+
+
+  <!--  <color name="purple_light_color" type="material">#9C2EDB</color>-->
+  <color name="purple_light_color" type="material">#4A257D</color>
+  <color name="purple_bottom_color" type="material">#FCD0FF</color>
+
+
+  <color name="white" type="material">#FFFFFF</color>
+  <color name="black" type="material">#000000</color>
+  <color name="black_scaffold" type="material">#0C1017</color>
+  <color name="background_grey" type="material">#F5F5F5</color>
+
+  <color name="light_primary_color" type="material">#0C70DE</color>
+  <color name="shimmer_base_color" type="material">#E3E3E3</color>
+  <color name="dimBlack" type="material">#23252C</color>
+
+  <!-- Text codes -->
+
+
+</resources>
